@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RYE — Dinner Under the Dome · Private Dining · Antigua</title>
+<meta name="description" content="Dinner Under the Dome by RYE — a private-chef dining experience in Antigua. A glowing dome, styled for your occasion, cooked by Chef Ali. Reserve your evening.">
+<style>
+  :root{
+    --paper:#f7f2e7; --cream:#fdfbf5; --white:#fff; --card:#fffdf8;
+    --ink:#1d2334; --navy:#16244d; --muted:#6f6a5d; --faint:#9a9484;
+    --gold:#e6a100; --gold2:#f4b400; --ember:#ec6a1c; --ember2:#ff9142;
+    --rose:#e07a5f; --dusk:#3a2b5f; --green:#3f7d2e;
+    --line:rgba(28,30,50,.10);
+    --serif:"Georgia","Times New Roman",serif; --mono:"Courier New",monospace;
+    --sans:"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--serif);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--gold2);color:#000}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .sans{font-family:var(--sans)}
+
+  /* rail */
+  .rail{position:fixed;top:0;left:0;right:0;height:32px;background:linear-gradient(180deg,#1a2547,#111b38);z-index:40;display:flex;align-items:center;overflow:hidden;border-bottom:1px solid rgba(244,180,0,.3)}
+  .rail-track{display:flex;gap:26px;white-space:nowrap;animation:railmove 44s linear infinite;font-family:var(--sans);font-size:10px;letter-spacing:2px;color:#c9b779;text-transform:uppercase}
+  .rail-track b{color:#f4b400}
+  @keyframes railmove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  nav{position:fixed;top:32px;left:0;right:0;z-index:35;display:flex;justify-content:space-between;align-items:center;padding:17px 34px;transition:.4s}
+  nav.stuck{background:rgba(247,242,231,.92);backdrop-filter:blur(12px);padding:10px 34px;border-bottom:1px solid var(--line);box-shadow:0 4px 20px rgba(30,40,60,.06)}
+  .brand{font-family:var(--serif);font-size:21px;letter-spacing:3px;color:var(--navy);font-weight:700;display:flex;align-items:center;gap:9px}
+  .brand .k{width:26px;height:26px;border:1.5px solid var(--gold);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:var(--gold);font-size:12px;font-style:italic;background:#fff}
+  .brand small{font-family:var(--sans);font-size:8px;letter-spacing:2.5px;color:var(--faint);font-weight:600;display:block;margin-top:-2px}
+  .navlinks{display:flex;gap:22px;font-family:var(--sans);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted)}
+  .navlinks a:hover{color:var(--navy)}
+  .book-btn{font-family:var(--sans);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#fff;background:linear-gradient(180deg,var(--ember2),var(--ember));padding:9px 18px;border-radius:4px;font-weight:700;box-shadow:0 6px 18px rgba(236,106,28,.3)}
+  @media(max-width:940px){.navlinks{display:none}nav{padding:11px 18px}}
+
+  /* HERO */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 20px 60px;overflow:hidden}
+  .sky{position:absolute;inset:0;z-index:-3;background:linear-gradient(180deg,#2a2350 0%,#5b3d6e 32%,#b5567a 55%,#e78a5b 74%,#f6c56b 90%,#f7ecc9 100%)}
+  .sea{position:absolute;left:0;right:0;bottom:0;height:26%;z-index:-2;background:linear-gradient(180deg,#7a4f74,#3a2b52);opacity:.65}
+  .sea::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:rgba(255,220,170,.5)}
+  .sunglow{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:420px;height:420px;border-radius:50%;z-index:-2;background:radial-gradient(circle,rgba(255,225,150,.75),rgba(255,180,90,.25) 45%,transparent 70%)}
+  .hero-in{position:relative;z-index:3;max-width:900px}
+  .kicker{font-family:var(--sans);font-size:12px;letter-spacing:6px;text-transform:uppercase;color:#fff3d6;margin-bottom:18px;text-shadow:0 2px 14px rgba(0,0,0,.4)}
+  .hero h1{font-family:var(--serif);font-weight:700;color:#fff;font-size:clamp(44px,9vw,104px);line-height:.95;letter-spacing:-1px;text-shadow:0 6px 40px rgba(30,10,40,.5)}
+  .hero h1 em{font-style:italic;color:#ffe6a6}
+  .hero .sub{font-family:var(--sans);font-size:clamp(14px,1.8vw,18px);color:#fdeede;max-width:56ch;margin:22px auto 0;text-shadow:0 2px 12px rgba(0,0,0,.4)}
+  .hero .sub b{color:#fff;font-weight:600}
+  .hero-cta{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .fire{font-family:var(--sans);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#3a1e00;background:linear-gradient(180deg,#ffdf8f,#f4b400);padding:15px 30px;border-radius:5px;font-weight:800;box-shadow:0 10px 30px rgba(180,110,0,.45);transition:transform .2s}
+  .fire:hover{transform:translateY(-2px)}
+  .ghost{font-family:var(--sans);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff;border:1.5px solid rgba(255,255,255,.6);padding:14px 26px;border-radius:5px;transition:.2s}
+  .ghost:hover{background:rgba(255,255,255,.14)}
+  /* dome */
+  .dome-wrap{position:relative;margin:34px auto 0;width:min(560px,90vw)}
+  .lights{position:absolute;top:-2px;left:-6%;right:-6%;height:60px;z-index:2}
+  .hero-note{margin-top:16px;font-family:var(--sans);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#fff2d4;opacity:.9}
+
+  /* sections */
+  section{position:relative;z-index:2}
+  .wrap{max-width:1180px;margin:0 auto;padding:96px 34px}
+  .st-head{text-align:center;max-width:62ch;margin:0 auto 42px}
+  .st-num{font-family:var(--mono);font-size:12px;color:var(--ember);letter-spacing:3px;font-weight:700}
+  .st-title{font-family:var(--serif);font-size:clamp(30px,5vw,50px);color:var(--navy);line-height:1.06;margin:8px 0 8px}
+  .st-title em{font-style:italic;color:var(--gold)}
+  .st-lead{font-family:var(--sans);font-size:15px;color:var(--muted)}
+  .reveal{opacity:0;transform:translateY(30px);transition:.8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* occasions band */
+  .occ{background:linear-gradient(160deg,#1a2547,#111b38);color:#fff;text-align:center}
+  .occ .wrap{padding:70px 34px}
+  .occ h2{font-family:var(--serif);font-size:clamp(26px,4vw,40px);color:#fff}
+  .occ h2 em{font-style:italic;color:var(--gold2)}
+  .occ p{font-family:var(--sans);font-size:14px;color:#c7cbe0;margin-top:8px}
+  .occ-tags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
+  .occ-tags span{font-family:var(--sans);font-size:12.5px;letter-spacing:1px;color:#fff;border:1px solid rgba(244,180,0,.4);border-radius:30px;padding:8px 16px;background:rgba(244,180,0,.06)}
+  .occ-tags span b{color:var(--gold2);font-weight:600}
+
+  /* packages */
+  .pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
+  @media(max-width:880px){.pkg-grid{grid-template-columns:1fr}}
+  .pkg{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 26px;display:flex;flex-direction:column;box-shadow:0 12px 30px rgba(40,50,70,.06)}
+  .pkg.pop{border:2px solid var(--gold);box-shadow:0 20px 46px rgba(230,161,0,.18);transform:translateY(-6px)}
+  @media(max-width:880px){.pkg.pop{transform:none}}
+  .pkg .badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-family:var(--sans);font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#3a1e00;background:linear-gradient(180deg,#ffdf8f,#f4b400);padding:6px 16px;border-radius:30px;box-shadow:0 6px 16px rgba(180,110,0,.3)}
+  .pkg h3{font-family:var(--serif);font-size:25px;color:var(--navy)}
+  .pkg .price{font-family:var(--serif);font-size:40px;color:var(--gold);margin:6px 0 2px;font-weight:700}
+  .pkg .price small{font-family:var(--sans);font-size:13px;color:var(--muted);font-weight:400}
+  .pkg .tagline{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-bottom:16px;min-height:34px}
+  .pkg ul{list-style:none;flex:1}
+  .pkg li{font-family:var(--sans);font-size:13.5px;color:var(--ink);padding:7px 0 7px 24px;position:relative;border-bottom:1px dashed var(--line)}
+  .pkg li::before{content:"✦";position:absolute;left:0;color:var(--gold);font-size:12px;top:8px}
+  .pkg .cta{margin-top:20px;text-align:center;font-family:var(--sans);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:13px;border-radius:7px;color:#fff;background:linear-gradient(180deg,var(--ember2),var(--ember));box-shadow:0 8px 22px rgba(236,106,28,.3)}
+  .pkg.pop .cta{background:linear-gradient(180deg,#ffdf8f,#f4b400);color:#3a1e00}
+  .addons{margin-top:26px;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:20px 24px}
+  .addons h4{font-family:var(--sans);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .addon-row{display:flex;flex-wrap:wrap;gap:10px}
+  .addon-row span{font-family:var(--sans);font-size:12.5px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:30px;padding:7px 14px}
+  .addon-row span b{color:var(--ember)}
+  .pkg-note{text-align:center;font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:18px}
+  .pkg-note b{color:var(--navy)}
+
+  /* food gallery */
+  .gal{columns:3;column-gap:14px;max-width:1180px;margin:0 auto}
+  @media(max-width:900px){.gal{columns:2}}@media(max-width:540px){.gal{columns:1}}
+  .g-item{break-inside:avoid;margin:0 0 14px;border-radius:12px;overflow:hidden;position:relative;border:1px solid var(--line);box-shadow:0 10px 24px rgba(40,50,70,.09)}
+  .g-item img{width:100%;transition:transform .6s}.g-item:hover img{transform:scale(1.06)}
+  .g-item figcaption{position:absolute;left:0;right:0;bottom:0;padding:30px 14px 12px;background:linear-gradient(transparent,rgba(22,36,77,.9));color:#fff;font-family:var(--serif);font-style:italic;font-size:15px}
+  .g-item figcaption b{display:block;font-family:var(--mono);font-style:normal;font-size:9px;letter-spacing:2px;color:var(--gold2);text-transform:uppercase;margin-bottom:3px}
+
+  /* how it works */
+  .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media(max-width:760px){.flow{grid-template-columns:1fr 1fr}}
+  .fstep{border:1px solid var(--line);border-radius:12px;padding:24px 18px;background:var(--card);box-shadow:0 6px 18px rgba(40,50,70,.05)}
+  .fstep .fn{font-family:var(--mono);font-size:12px;color:var(--ember);font-weight:700}
+  .fstep h4{font-family:var(--serif);font-size:19px;color:var(--navy);margin:8px 0 6px}
+  .fstep p{font-family:var(--sans);font-size:12.5px;color:var(--muted);line-height:1.5}
+
+  /* chef */
+  .chef{display:grid;grid-template-columns:.86fr 1.14fr;gap:46px;align-items:center}
+  @media(max-width:820px){.chef{grid-template-columns:1fr}}
+  .chef .portrait{border-radius:14px;overflow:hidden;border:5px solid #fff;box-shadow:0 20px 44px rgba(40,50,70,.18);aspect-ratio:4/5;max-width:400px}
+  .chef .portrait img{width:100%;height:100%;object-fit:cover}
+  @media(max-width:820px){.chef .portrait{margin:0 auto}}
+  .chef q{display:block;font-family:var(--serif);font-style:italic;font-size:clamp(22px,3vw,30px);color:var(--navy);line-height:1.35;margin-bottom:20px}
+  .chef q::before{content:"“";color:var(--ember);font-size:40px;line-height:0;vertical-align:-14px;margin-right:4px}
+  .chef p{font-family:var(--sans);font-size:14px;color:var(--muted);margin-bottom:14px;line-height:1.7}
+  .chef p b{color:var(--navy)}
+  .chef .sig{font-family:var(--serif);font-style:italic;font-size:26px;color:var(--gold);margin-top:8px}
+
+  /* reserve */
+  .reserve{background:linear-gradient(160deg,#1a2547,#0f1830);color:#fff}
+  .reserve .st-title{color:#fff}.reserve .st-lead{color:#c7cbe0}
+  .book-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:start;max-width:980px;margin:0 auto}
+  @media(max-width:860px){.book-wrap{grid-template-columns:1fr}}
+  .form{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:28px}
+  .form label{display:block;font-family:var(--sans);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#b9c0da;margin:14px 0 6px}
+  .form input,.form select{width:100%;background:rgba(255,255,255,.95);border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:12px 13px;color:#1d2334;font-family:var(--sans);font-size:14px}
+  .form .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .deposit{margin-top:18px;display:flex;justify-content:space-between;align-items:center;background:rgba(244,180,0,.12);border:1px solid rgba(244,180,0,.4);border-radius:10px;padding:12px 16px;font-family:var(--sans)}
+  .deposit .l{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#f4d488}
+  .deposit .v{font-family:var(--serif);font-size:26px;color:#fff;font-weight:700}
+  .fire-ticket{width:100%;margin-top:18px;background:linear-gradient(180deg,#ffdf8f,#f4b400);color:#3a1e00;font-family:var(--sans);font-weight:800;letter-spacing:2px;text-transform:uppercase;font-size:14px;padding:16px;border:none;border-radius:8px;cursor:pointer;box-shadow:0 10px 28px rgba(180,110,0,.4)}
+  .bnote{font-family:var(--sans);font-size:11px;color:#9aa2c4;text-align:center;margin-top:12px}
+  /* reservation card */
+  .rescard{background:#fffdf6;color:#1a1a1a;border-radius:12px;padding:24px;font-family:var(--sans);box-shadow:0 22px 50px rgba(0,0,0,.35);position:relative;overflow:hidden}
+  .rescard::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--gold),var(--ember),var(--gold))}
+  .rescard .rc-h{font-family:var(--serif);font-size:22px;color:var(--navy);border-bottom:2px dashed #d8cfb8;padding-bottom:12px;margin-bottom:6px}
+  .rescard .rc-h span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-top:3px}
+  .rescard .rl{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dotted #e0d8c2;font-size:14px}
+  .rescard .rl span:first-child{color:#8a8470;font-size:11px;letter-spacing:1px;text-transform:uppercase;align-self:center}
+  .rescard .rl span:last-child{font-weight:600;color:#1d2334;text-align:right}
+  .rescard .rc-dep{margin-top:14px;background:#fff6df;border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+  .rescard .rc-dep .d1{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#a2490a}
+  .rescard .rc-dep .d2{font-family:var(--serif);font-size:24px;color:var(--gold);font-weight:700}
+  .rescard .stamp{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%) rotate(-14deg) scale(.4);border:4px solid #2f7d2e;color:#2f7d2e;font-weight:900;letter-spacing:3px;font-size:22px;padding:8px 16px;border-radius:8px;opacity:0;text-transform:uppercase}
+  .rescard.done .stamp{animation:stamp .5s cubic-bezier(.2,1.4,.4,1) forwards}
+  @keyframes stamp{to{opacity:.92;transform:translate(-50%,-50%) rotate(-14deg) scale(1)}}
+
+  footer{background:linear-gradient(180deg,#0f1830,#0a1020);color:#c7cbe0;padding:52px 34px 34px;text-align:center}
+  footer .fb{font-family:var(--serif);font-size:26px;letter-spacing:4px;color:#fff}
+  footer .fb em{font-style:italic;color:var(--gold2)}
+  footer .tag2{font-family:var(--serif);font-style:italic;color:var(--gold2);font-size:15px;margin:6px 0 20px}
+  footer .fc{font-family:var(--sans);font-size:13px;display:flex;gap:22px;justify-content:center;flex-wrap:wrap}
+  footer .fc a:hover{color:#fff}
+  footer .fine{font-family:var(--sans);font-size:10px;color:#6b7290;margin-top:24px;letter-spacing:1px}
+
+  /* private chef service cards */
+  .svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media(max-width:760px){.svc-grid{grid-template-columns:1fr}}
+  .svc{position:relative;min-height:250px;border-radius:14px;overflow:hidden;border:1px solid var(--line);display:flex;box-shadow:0 12px 30px rgba(40,50,70,.1)}
+  .svc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .svc:hover img{transform:scale(1.06)}
+  .svc .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,18,38,.12),rgba(12,18,38,.86))}
+  .svc .body{position:relative;z-index:2;align-self:flex-end;padding:24px}
+  .svc .body .tag{font-family:var(--mono);font-size:11px;color:var(--gold2);letter-spacing:2px;font-weight:700}
+  .svc .body h3{font-family:var(--serif);font-size:25px;color:#fff;margin:5px 0 7px}
+  .svc .body h3 em{font-style:italic;color:var(--gold2)}
+  .svc .body p{font-family:var(--sans);font-size:13px;color:rgba(255,255,255,.86);max-width:42ch;line-height:1.5}
+  .svc .body .price{font-family:var(--sans);font-size:12.5px;color:#fff;margin-top:12px}
+  .svc .body .price b{color:var(--ember2)}
+
+  html:not(.anim) .reveal{opacity:1 !important;transform:none !important}
+  @media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}.reveal{opacity:1 !important;transform:none !important}}
+</style>
+<script>try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}</script>
+</head>
+<body>
+
+<div class="rail"><div class="rail-track" id="railtrack"></div></div>
+
+<nav id="nav">
+  <a href="index.html" class="brand"><span class="k">R</span>RYE<small>DINNER UNDER THE DOME</small></a>
+  <div class="navlinks">
+    <a href="index.html">← RYE Home</a>
+    <a href="#packages">Packages</a>
+    <a href="#menu">The Food</a>
+    <a href="#how">How It Works</a>
+    <a href="#reserve">Reserve</a>
+  </div>
+  <a href="#reserve" class="book-btn">Reserve the Dome</a>
+</nav>
+
+<header class="hero" id="top">
+  <div class="sky"></div><div class="sunglow"></div><div class="sea"></div>
+  <div class="hero-in">
+    <div class="kicker">RYE · Private Dining · Antigua</div>
+    <h1>Dinner Under<br>the <em>Dome</em></h1>
+    <p class="sub">A private-chef dining experience for Antigua — <b>intimate, unforgettable, impossibly beautiful.</b> One glowing dome, styled for your occasion, cooked by Chef Ali — who also caters villas, yachts &amp; events across the island.</p>
+    <div class="hero-cta">
+      <a href="#reserve" class="fire">Reserve Your Evening</a>
+      <a href="#packages" class="ghost">See Packages</a>
+    </div>
+    <div class="dome-wrap">
+      <svg class="lights" viewBox="0 0 560 60" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,30 Q140,2 280,26 T560,20" fill="none" stroke="rgba(255,235,180,.5)" stroke-width="1"/>
+        <g fill="#ffe9a8"><circle cx="40" cy="26" r="2.6"/><circle cx="110" cy="16" r="2.6"/><circle cx="180" cy="16" r="2.6"/><circle cx="250" cy="24" r="2.6"/><circle cx="320" cy="24" r="2.6"/><circle cx="390" cy="18" r="2.6"/><circle cx="460" cy="20" r="2.6"/><circle cx="525" cy="20" r="2.6"/></g>
+      </svg>
+      <svg viewBox="0 0 560 340" width="100%" aria-label="Glowing geodesic dome at sunset">
+        <defs>
+          <radialGradient id="domeGlow" cx="50%" cy="72%" r="60%">
+            <stop offset="0%" stop-color="rgba(255,224,150,.95)"/>
+            <stop offset="45%" stop-color="rgba(255,180,110,.55)"/>
+            <stop offset="100%" stop-color="rgba(255,170,120,.06)"/>
+          </radialGradient>
+        </defs>
+        <!-- dome glass -->
+        <path d="M60,300 A220,220 0 0 1 500,300 Z" fill="url(#domeGlow)" stroke="rgba(255,240,205,.85)" stroke-width="2"/>
+        <!-- geodesic struts -->
+        <g fill="none" stroke="rgba(255,244,215,.6)" stroke-width="1.1">
+          <path d="M280,84 L60,300 M280,84 L155,300 M280,84 L280,300 M280,84 L405,300 M280,84 L500,300"/>
+          <path d="M110,208 Q280,150 450,208"/>
+          <path d="M80,258 Q280,196 480,258"/>
+          <path d="M140,160 Q280,120 420,160"/>
+          <path d="M175,208 L215,300 M345,208 L405,300 M225,160 L200,208 M335,160 L360,208"/>
+        </g>
+        <!-- table + candles inside -->
+        <ellipse cx="280" cy="292" rx="70" ry="12" fill="rgba(90,50,40,.5)"/>
+        <rect x="252" y="256" width="4" height="34" fill="rgba(255,220,150,.9)"/><circle cx="254" cy="252" r="6" fill="#ffe9a8"/>
+        <rect x="304" y="256" width="4" height="34" fill="rgba(255,220,150,.9)"/><circle cx="306" cy="252" r="6" fill="#ffe9a8"/>
+        <ellipse cx="280" cy="300" rx="200" ry="14" fill="rgba(60,40,70,.35)"/>
+      </svg>
+    </div>
+    <div class="hero-note">Anniversaries · Proposals · Birthdays · Honeymoons · Valentine's · Just because</div>
+  </div>
+</header>
+
+<!-- UMBRELLA INTRO -->
+<section style="background:var(--paper)"><div class="wrap" style="padding:74px 34px;text-align:center;max-width:820px">
+  <div class="st-num reveal">RYE · ANTIGUA</div>
+  <p class="reveal" style="font-family:var(--serif);font-size:clamp(20px,3vw,31px);color:var(--navy);line-height:1.42;margin-top:12px">RYE is Antigua's home for private dining — a <em style="font-style:italic;color:var(--gold)">restaurant</em>, a <em style="font-style:italic;color:var(--gold)">private chef</em>, and full-service <em style="font-style:italic;color:var(--gold)">catering</em>.<br><b>Dinner Under the Dome</b> is our signature experience.</p>
+</div></section>
+
+<!-- OCCASIONS -->
+<section class="occ" id="experience">
+  <div class="wrap">
+    <div class="reveal">
+      <h2>One dome. <em>Every occasion.</em></h2>
+      <p class="sans">The same setup transforms completely with styling — a single, beautiful asset for every celebration on the calendar, all year round.</p>
+      <div class="occ-tags">
+        <span><b>♥</b> Anniversaries</span><span><b>♥</b> Proposals</span><span><b>♥</b> Valentine's Day</span>
+        <span><b>♥</b> Birthdays</span><span><b>♥</b> Honeymoons</span><span><b>♥</b> Babymoons</span>
+        <span><b>♥</b> Vow Renewals</span><span><b>♥</b> Date Nights</span><span><b>♥</b> "Just Because"</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section id="packages"><div class="wrap">
+  <div class="st-head reveal">
+    <div class="st-num">01 · DINNER UNDER THE DOME</div>
+    <h2 class="st-title">Three ways to <em>book the dome</em>.</h2>
+    <p class="st-lead">Our signature experience. Every dome is fully hosted and cooked to order — we handle the styling, the setup, and the meal.</p>
+  </div>
+  <div class="pkg-grid">
+    <div class="pkg reveal">
+      <h3>The Dome Date</h3>
+      <div class="price">$249<small> / couple</small></div>
+      <div class="tagline">An evening date night, at your location.</div>
+      <ul>
+        <li>Private chef · 3-course dinner</li>
+        <li>Decorated dome for two</li>
+        <li>Candles &amp; fairy-light styling</li>
+        <li>Set-up at your home / backyard</li>
+        <li>~2.5 hours, fully hosted</li>
+      </ul>
+      <div class="cta">Reserve This</div>
+    </div>
+    <div class="pkg pop reveal">
+      <div class="badge">★ Most Popular</div>
+      <h3>Sunset Signature</h3>
+      <div class="price">$399<small> / couple</small></div>
+      <div class="tagline">The full experience, in a scenic setting.</div>
+      <ul>
+        <li>Private chef · 4-course tasting</li>
+        <li>Premium floral + candle styling</li>
+        <li>Welcome sparkling wine</li>
+        <li>Signature location (beach / garden)</li>
+        <li>Curated playlist · full hosting</li>
+      </ul>
+      <div class="cta">Reserve This</div>
+    </div>
+    <div class="pkg reveal">
+      <h3>The Grand Occasion</h3>
+      <div class="price">$649<small> / couple</small></div>
+      <div class="tagline">Proposals &amp; milestone anniversaries.</div>
+      <ul>
+        <li>Private chef · 5-course menu</li>
+        <li>Full themed occasion styling</li>
+        <li>Photographer (30 min)</li>
+        <li>Florals + celebration cake</li>
+        <li>Champagne — the works</li>
+      </ul>
+      <div class="cta">Reserve This</div>
+    </div>
+  </div>
+  <div class="addons reveal">
+    <h4>À la carte add-ons</h4>
+    <div class="addon-row">
+      <span>Professional photographer</span>
+      <span>Live acoustic musician (1 hr)</span>
+      <span>Custom celebration cake</span>
+      <span>Champagne upgrade <b>+$150</b></span>
+      <span>Additional guest (up to 6)</span>
+    </div>
+  </div>
+  <p class="pkg-note reveal">Prices in USD — launch benchmarks. <b>All bookings hold a 50% deposit to reserve your date.</b> Visitor &amp; resort pricing available on request.</p>
+</div></section>
+
+<!-- FOOD -->
+<section id="menu" style="background:var(--cream)"><div class="wrap">
+  <div class="st-head reveal">
+    <div class="st-num">02 · THE FOOD</div>
+    <h2 class="st-title">Cooked by <em>Chef Ali</em>.</h2>
+    <p class="st-lead">Restaurant-grade courses, plated inside the dome. Your menu is built to order — a taste of recent nights.</p>
+  </div>
+  <div class="gal">
+    <figure class="g-item reveal"><img src="img/ravioli.jpg" alt="Beet ravioli"><figcaption><b>Pasta</b>Beet Ravioli · Brown Butter Almonds</figcaption></figure>
+    <figure class="g-item reveal"><img src="img/salmon.jpg" alt="Tarragon salmon"><figcaption><b>Main</b>Creamy Tarragon Salmon · Parmesan Pasta</figcaption></figure>
+    <figure class="g-item reveal"><img src="img/bellini-caviar.jpg" alt="Bellinis with caviar"><figcaption><b>Canapé</b>Bellinis · Crème Fraîche &amp; Caviar</figcaption></figure>
+    <figure class="g-item reveal"><img src="img/panna-cotta.jpg" alt="Panna cotta"><figcaption><b>Dessert</b>Vanilla Panna Cotta · Pineapple Compote</figcaption></figure>
+    <figure class="g-item reveal"><img src="img/butternut-soup.jpg" alt="Butternut soup"><figcaption><b>Starter</b>Butternut &amp; Ginger Soup</figcaption></figure>
+    <figure class="g-item reveal"><img src="img/steak.jpg" alt="Steak"><figcaption><b>Main</b>Flame-Grilled Steak · Creamy Mash</figcaption></figure>
+    <figure class="g-item reveal"><img src="img/beet-salad.jpg" alt="Beet salad"><figcaption><b>Salad</b>Beet &amp; Goat Cheese</figcaption></figure>
+    <figure class="g-item reveal"><img src="img/bao.jpg" alt="Bao buns"><figcaption><b>Small Plate</b>RYE Bao Buns</figcaption></figure>
+    <figure class="g-item reveal"><img src="img/peach-crumble.jpg" alt="Peach crumble"><figcaption><b>Dessert</b>Peach &amp; Black Pineapple Crumble</figcaption></figure>
+  </div>
+</div></section>
+
+<!-- HOW IT WORKS -->
+<section id="how"><div class="wrap">
+  <div class="st-head reveal">
+    <div class="st-num">03 · HOW IT WORKS</div>
+    <h2 class="st-title">Four steps to your <em>evening</em>.</h2>
+  </div>
+  <div class="flow">
+    <div class="fstep reveal"><div class="fn">01</div><h4>Choose your night</h4><p>Pick your occasion, package and date. Tell us where — home, beach, or garden.</p></div>
+    <div class="fstep reveal"><div class="fn">02</div><h4>Hold your date</h4><p>A 50% deposit reserves the dome and the date. We confirm within a day.</p></div>
+    <div class="fstep reveal"><div class="fn">03</div><h4>We style the dome</h4><p>Chef Ali plans your menu; we set up and style the dome for your occasion.</p></div>
+    <div class="fstep reveal"><div class="fn">04</div><h4>You just arrive</h4><p>Walk in to a glowing dome and a hosted, multi-course dinner. We handle the rest.</p></div>
+  </div>
+</div></section>
+
+<!-- CHEF -->
+<section style="background:var(--cream)"><div class="wrap">
+  <div class="chef">
+    <div class="portrait reveal"><img src="img/chef-portrait.jpg" alt="Chef Ali Thomas"></div>
+    <div class="reveal">
+      <div class="st-num">04 · YOUR CHEF</div>
+      <q>I don't cook <em>at</em> people. I cook for the night they'll remember.</q>
+      <p>RYE is chef <b>Ali Thomas</b> — an Antigua-born cook bringing fine-dining technique to the most beautiful settings on the island. Every dome is her food, her hosting, her standard.</p>
+      <p>Beach, garden or backyard — the dome travels, and so does the kitchen. Real fire, real technique, an evening built entirely around you.</p>
+      <div class="sig">— Chef Ali</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- RESERVE -->
+<section class="reserve" id="reserve"><div class="wrap">
+  <div class="st-head reveal">
+    <div class="st-num" style="color:var(--gold2)">05 · RESERVE</div>
+    <h2 class="st-title">Reserve <em>your evening</em>.</h2>
+    <p class="st-lead">Choose your package and date. A 50% deposit holds the dome — we confirm within a day.</p>
+  </div>
+  <div class="book-wrap">
+    <form class="form" id="orderForm" autocomplete="off">
+      <div class="row">
+        <div><label>Your name</label><input id="f_name" placeholder="Full name"></div>
+        <div><label>Guests</label><select id="f_guests"><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
+      </div>
+      <label>Occasion</label>
+      <select id="f_occasion"><option>Anniversary</option><option>Proposal</option><option>Birthday</option><option>Valentine's Day</option><option>Honeymoon</option><option>Babymoon</option><option>Vow Renewal</option><option>Date Night</option><option>Just Because</option></select>
+      <label>Package</label>
+      <select id="f_pkg">
+        <optgroup label="Dinner Under the Dome">
+          <option data-p="249">The Dome Date — $249</option>
+          <option data-p="399" selected>Sunset Signature — $399</option>
+          <option data-p="649">The Grand Occasion — $649</option>
+        </optgroup>
+        <optgroup label="Private Chef (quoted)">
+          <option data-p="0">Villa Dinner — from $95/guest</option>
+          <option data-p="0">Chef's Table — from $140/guest</option>
+          <option data-p="0">Yacht / Event — custom</option>
+        </optgroup>
+      </select>
+      <div class="row">
+        <div><label>Date</label><input id="f_date" type="date"></div>
+        <div><label>Location</label><input id="f_loc" placeholder="Home · beach · garden"></div>
+      </div>
+      <div class="deposit"><span class="l">50% deposit to reserve</span><span class="v" id="depVal">$199.50</span></div>
+      <button type="submit" class="fire-ticket">Reserve — Pay 50% Deposit</button>
+      <p class="bnote">No charge yet — this opens WhatsApp to send your request to Chef Ali. The 50% deposit is collected once your date is confirmed (usually same day).</p>
+    </form>
+    <div>
+      <div class="rescard" id="rescard">
+        <div class="stamp">Reserved</div>
+        <div class="rc-h">RYE · Dinner Under the Dome<span>RESERVATION REQUEST</span></div>
+        <div class="rl"><span>Guest</span><span id="r_name">—</span></div>
+        <div class="rl"><span>Occasion</span><span id="r_occ">Anniversary</span></div>
+        <div class="rl"><span>Package</span><span id="r_pkg">Sunset Signature</span></div>
+        <div class="rl"><span>Date</span><span id="r_date">—</span></div>
+        <div class="rl"><span>Guests · Location</span><span id="r_gl">2 · —</span></div>
+        <div class="rc-dep"><span class="d1">Deposit to hold the date</span><span class="d2" id="r_dep">$199.50</span></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<footer>
+  <div class="fb"><em>R</em>YE</div>
+  <div class="tag2">Restaurant · Private Chef · Catering</div>
+  <div class="sans" style="font-size:12px;letter-spacing:2px;color:#9aa2c4;text-transform:uppercase;margin-top:-14px;margin-bottom:20px">Signature experience — Dinner Under the Dome</div>
+  <div class="fc sans">
+    <a href="mailto:ryeplanner1@gmail.com">ryeplanner1@gmail.com</a>
+    <a href="tel:+12687888840">+1 268 788 8840</a>
+    <a href="https://instagram.com/rye.268" target="_blank" rel="noopener">@rye.268</a>
+  </div>
+  <div class="fine">RYE Private Dining · Chef Ali Thomas · Antigua &amp; Barbuda · Anniversaries · Proposals · Honeymoons · Events</div>
+</footer>
+
+<script>
+(function(){const t=[['ANNIVERSARY','JOLLY HARBOUR'],['PROPOSAL','SHIRLEY HEIGHTS'],['HONEYMOON','DICKENSON BAY'],['BIRTHDAY','ENGLISH HARBOUR'],['VALENTINE\'S','FALMOUTH'],['DATE NIGHT','HODGES BAY'],['VOW RENEWAL','NONSUCH BAY']];let h='';for(let r=0;r<2;r++)t.forEach(x=>h+=`RESERVED ▸ <b>${x[0]}</b> · ${x[1]}&nbsp;&nbsp;&nbsp;&nbsp;`);document.getElementById('railtrack').innerHTML=h+h;})();
+const nav=document.getElementById('nav');addEventListener('scroll',()=>nav.classList.toggle('stuck',scrollY>60));
+const reduce=(()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}})();
+if(reduce)document.querySelectorAll('.reveal').forEach(e=>e.classList.add('in'));
+else{const io=new IntersectionObserver(es=>es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),(i%3)*70);io.unobserve(e.target);}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(e=>io.observe(e));}
+function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmtDate(v){if(!v)return '—';return new Date(v+'T00:00').toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase();}
+const g=id=>document.getElementById(id);
+function sync(){
+  const price=+g('f_pkg').selectedOptions[0].dataset.p;
+  const depText = price>0 ? money(price*0.5) : 'Quoted';
+  g('depVal').textContent=depText; g('r_dep').textContent=depText;
+  g('r_name').textContent=g('f_name').value.trim()||'—';
+  g('r_occ').textContent=g('f_occasion').value;
+  g('r_pkg').textContent=g('f_pkg').selectedOptions[0].textContent.split(' — ')[0];
+  g('r_date').textContent=fmtDate(g('f_date').value);
+  g('r_gl').textContent=g('f_guests').value+' · '+(g('f_loc').value.trim()||'—');
+}
+['f_name','f_guests','f_occasion','f_pkg','f_date','f_loc'].forEach(id=>g(id).addEventListener('input',sync));
+g('orderForm').addEventListener('submit',e=>{
+  e.preventDefault();sync();
+  const c=g('rescard');c.classList.remove('done');void c.offsetWidth;c.classList.add('done');
+  const pkg=g('f_pkg').selectedOptions[0].textContent.split(' — ')[0].trim();
+  const lines=[
+    'RYE — Reservation request','',
+    'Name: '+(g('f_name').value.trim()||'—'),
+    'Occasion: '+g('f_occasion').value,
+    'Package: '+pkg,
+    'Date: '+g('r_date').textContent,
+    'Guests: '+g('f_guests').value,
+    'Location: '+(g('f_loc').value.trim()||'—'),
+    'Deposit (50%): '+g('r_dep').textContent
+  ];
+  const txt=encodeURIComponent(lines.join('\n'));
+  setTimeout(()=>{ window.open('https://wa.me/12687888840?text='+txt,'_blank'); },850);
+});
+(function(){const d=new Date();d.setDate(d.getDate()+21);g('f_date').value=d.toISOString().slice(0,10);sync();})();
+</script>
+</body>
+</html>
